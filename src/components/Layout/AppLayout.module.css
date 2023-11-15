@@ -1,0 +1,74 @@
+.menuLayout{
+    background-color: #1f2937!important;
+    color: #7e8b9c!important;
+}
+
+.headerContainer{
+    margin-left: 24px;
+    color: white;
+    font-size: 20px;
+}
+
+.titleContainer{
+    height: 40px;
+    display: flex;
+    margin: 15px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pageInfoContainer{
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.pageInfoContainer p{
+    color: #7e8b9c;
+    margin-top: 10px;
+}
+
+.titleContainer h1{
+    height: 14px;
+}
+
+.languageIndicator{
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #e9eaec;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.userDataContainer{
+    display: flex;
+    align-items: center;
+}
+
+.userShortName {
+    height: 30px;
+    width: 30px;
+    background: black;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 35px;
+}
+
+.header{
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+h1{
+    margin: 0;
+}
+
+p{
+    margin: 0;
+}

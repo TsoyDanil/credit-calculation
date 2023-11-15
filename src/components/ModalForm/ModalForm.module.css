@@ -1,0 +1,49 @@
+.overlay{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    background: rgb(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContainer{
+    background: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    position: relative;
+}
+
+.header{
+    margin-bottom: 20px;
+    font-size: 25px;
+    margin-right: 50px;
+    margin-left: 50px;
+    text-align: center;
+}
+
+.buttonsContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.button{
+    padding: 10px;
+    border-radius: 5px;
+    width: 220px;
+    background: white;
+    border: 2px solid #747474;
+    cursor: pointer;
+}
+
+.button:disabled{
+    background: #f1f2f4;
+    border: none;
+    cursor: initial;
+}

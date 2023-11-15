@@ -1,0 +1,14 @@
+.root{
+    cursor: pointer;
+}
+
+.text{
+    font-size: 18px;
+}
+
+.image{
+    margin: 10px auto;
+    height: 220px;
+    width: 200px;
+    display: block;
+}
