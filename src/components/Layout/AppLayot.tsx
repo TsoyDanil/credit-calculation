@@ -19,6 +19,7 @@ import DataPlaceholder from "../DataPlaceholder/DataPlaceholder.tsx";
 import ModalForm from "../ModalForm/ModalForm.tsx";
 import {useAppSelector} from "../../store";
 import CalculationForm from "../CalculationForm/CalculationForm.tsx";
+import BanksDataList from "../BanksDataList/BanksDataList.tsx";
 
 const { Header, Content, Sider } = Layout;
 
@@ -177,7 +178,8 @@ const AppLayout: React.FC = () => {
                         <Content style={{ margin: '16px', width: "50%" }}>
                             <div style={{ padding: 24, minHeight: 250, background: colorBgContainer, borderRadius: "5px" }}>
                                 <h1 className={styles.header}>Калькулятор</h1>
-                                <DataPlaceholder/>
+                                {/*<DataPlaceholder/>*/}
+                                <BanksDataList/>
                             </div>
                         </Content>
                     </div>

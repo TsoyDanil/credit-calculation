@@ -6,14 +6,10 @@ export type TCarType = {
 export const carTypes: TCarType[] = [
     {
         id: 1,
-        carType: "Type 1"
+        carType: "БУ"
     },
     {
         id: 2,
-        carType: "Type 2"
-    },
-    {
-        id: 3,
-        carType: "Type 3"
+        carType: "Новое"
     }
 ]

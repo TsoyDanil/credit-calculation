@@ -9,3 +9,16 @@
     align-items: center;
     margin-top: 20px;
 }
+
+.checkboxContainer{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    max-width: 310px;
+    width: 100%;
+}
+
+.checkboxContainer p{
+    font-size: 15px;
+    margin-left: 15px;
+}

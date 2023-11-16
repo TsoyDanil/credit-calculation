@@ -6,34 +6,23 @@ import styles from "./ModalForm.module.css"
 import {Select} from "antd";
 import {carMarks, TCarMark} from "../../data/carMarks.ts";
 import {carModels, TCarModel} from "../../data/carModels.ts";
-
-type TCarData = {
-    carMark: string | null,
-    carModel: string | null,
-    releaseYear: string | null
-}
+import {TCarData} from "../../types/carData.ts";
+import {setCarOverallData} from "../../store/features/data.ts";
 const ModalForm: FC = () => {
-
-    const {showModal} = useAppSelector((state) => state.app)
 
     const dispatch = useAppDispatch();
 
+    const {carData} = useAppSelector((state) => state.data)
+
     const [dates, setDates] = useState<number[]>([])
 
-    const [carData, setCarData] = useState<TCarData>({
-        carMark: null,
-        carModel: null,
-        releaseYear: null
-    })
+    const [carDto, setCarDto] = useState<TCarData>(carData)
 
     const [saveDisabled, setSaveDisabled] = useState<boolean>(true)
 
-    const clearFields = () => {
-        setCarData({
-            carMark: null,
-            carModel: null,
-            releaseYear: null
-        })
+    const handleSaveCarData = () => {
+        dispatch(setCarOverallData(carDto))
+        dispatch(toggleShowModal())
     }
 
     useEffect(() => {
@@ -43,10 +32,10 @@ const ModalForm: FC = () => {
     }, [])
 
     useEffect(() => {
-        if (carData.carMark && carData.carModel && carData.releaseYear){
+        if (carDto.carMark && carDto.carModel && carDto.releaseYear){
             setSaveDisabled(false)
         }
-    }, [carData])
+    }, [carDto])
 
     return (
         <div className={styles.overlay}>
@@ -64,9 +53,9 @@ const ModalForm: FC = () => {
                 <h1 className={styles.header}>Марка, модель и год выпуска</h1>
                 <Select
                     placeholder="Марка авто"
-                    value={carData.carMark}
+                    value={carDto.carMark}
                     onChange={(e) => {
-                        setCarData(prevState => {
+                        setCarDto(prevState => {
                             return {
                                 ...prevState,
                                 carMark: e
@@ -84,9 +73,9 @@ const ModalForm: FC = () => {
                 </Select>
                 <Select
                     placeholder="Модель авто"
-                    value={carData.carModel}
+                    value={carDto.carModel}
                     onChange={(e) => {
-                        setCarData(prevState => {
+                        setCarDto(prevState => {
                             return {
                                 ...prevState,
                                 carModel: e
@@ -104,9 +93,9 @@ const ModalForm: FC = () => {
                 </Select>
                 <Select
                     placeholder="Год выпуска"
-                    value={carData.releaseYear}
+                    value={carDto.releaseYear}
                     onChange={(e) => {
-                        setCarData(prevState => {
+                        setCarDto(prevState => {
                             return {
                                 ...prevState,
                                 releaseYear: e
@@ -125,11 +114,12 @@ const ModalForm: FC = () => {
                 <div className={styles.buttonsContainer}>
                     <button
                         className={styles.button}
-                        onClick={() => {clearFields()}}
+                        onClick={() => {dispatch(toggleShowModal())}}
                     >Отмена</button>
                     <button
                         className={styles.button}
                         disabled={saveDisabled}
+                        onClick={()=>{handleSaveCarData()}}
                     >Сохранить</button>
                 </div>
             </div>

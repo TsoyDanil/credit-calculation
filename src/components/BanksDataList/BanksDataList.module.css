@@ -1,0 +1,22 @@
+.mainHeader{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    background: #c4cad3;
+    padding: 7px;
+    margin-bottom: 20px;
+}
+
+.mainHeader p{
+    max-width: 300px;
+    width: 100%;
+    text-align: center;
+    padding: 3px;
+    transition: 0.2s;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.mainHeaderFocus{
+    background: #f1f2f4;
+}

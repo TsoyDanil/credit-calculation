@@ -1,15 +1,9 @@
 import {FC} from "react";
 import styles from "./DataPlaceholder.module.css"
 import calcutorImage from "../../assets/img.png"
-import {useAppDispatch} from "../../store";
-import {toggleShowModal} from "../../store/features/app.ts";
 const DataPlaceholder: FC = () => {
 
-    const dispatch = useAppDispatch()
-
-    return <div className={styles.root}
-            onClick={() => {dispatch(toggleShowModal())}}
-        >
+    return <div className={styles.root}>
 
         <p className={styles.text}>Заполните все параметры, чтобы получить предварительные решения от банков</p>
 
