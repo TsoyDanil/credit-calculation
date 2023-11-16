@@ -1,12 +1,13 @@
 import {FC, useEffect, useMemo, useState} from "react";
 import {Button, Collapse} from "antd";
-import {PlusOutlined, MinusOutlined, CalculatorOutlined} from '@ant-design/icons';
+import {PlusOutlined, MinusOutlined} from '@ant-design/icons';
 import {banks, TBank} from "../../data/banks.ts";
 import BankDataItem from "./BankDataItem/BankDataItem.tsx";
 import styles from "./BanksDataList.module.css"
 import { useAppSelector} from "../../store";
 import {checkObjectValues} from "../../helpers/checkObjectValues.ts";
 import NotAvailableBanks from "./NotAvailableBanks/NotAvailableBanks.tsx";
+import BankHeader from "./BankHeader/BankHeader.tsx";
 
 const { Panel } = Collapse;
 const BanksDataList: FC = () => {
@@ -20,62 +21,47 @@ const BanksDataList: FC = () => {
 
     const [carDataWatcher, setCarDataWatcher] = useState(carInfo)
 
-    const [recountAvailable, setRecountAvailable] = useState<boolean>(false)
     const handleRecount = () => {
         setCarDataWatcher(carInfo)
-        setRecountAvailable(false)
     }
 
     const memoList =
         useMemo(() => banks
             .filter((bank) => bank.availableModels.includes(carDataWatcher.carData.carModel)
                 && bank.availableMarks.includes(carDataWatcher.carData.carMark)
-                && bank.minPayment <= carDataWatcher.firstPayment)
+                && bank.minPayment <= Number(carDataWatcher.firstPayment))
             .map((bank: TBank) => {
-        return <Panel key={bank.id}
-                      header={<div
-                          style={{display: "flex", alignItems: "center"}}
-                      >
-                          <div
-                              style={{
-                                  width: "30px",
-                                  height: "30px",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  color: "white",
-                                  background: "black",
-                                  borderRadius: "50%",
-                                  marginRight: "20px"
-                              }}
-                          >
-                              {bank.logo}
-                          </div>
-                          <p>{bank.bankName}</p>
-                      </div>}>
-            <BankDataItem bank={bank} carCost={carDataWatcher.carCost}/>
-        </Panel>
+        return (
+            <Panel
+                key={bank.id}
+                header={<BankHeader logo={bank.logo} bankName={bank.bankName}/>}
+            >
+                <BankDataItem
+                    bank={bank}
+                    carCost={carDataWatcher.carCost}
+                    timePeriod={Number(carInfo.loanPeriod)}
+                    firstPayment={Number(carInfo.firstPayment)}
+                />
+            </Panel>)
     }),[banks, carDataWatcher])
 
     useEffect(() => {
         const isDataValid = checkObjectValues(carInfo)
-        isDataValid ? setRecountAvailable(true) : setRecountAvailable(false)
+        isDataValid && handleRecount()
     }, [carInfo])
-
-    useEffect(() => {
-        setRecountAvailable(false)
-    }, [])
 
     return <>
                 <div>
                     <NotAvailableBanks
                         firstPaymentDeniedBanks={
                         banks
-                            .filter((bank) => !bank.availableModels.includes(carDataWatcher.carData.carModel)
-                                && !bank.availableMarks.includes(carDataWatcher.carData.carMark))}
+                            .filter((bank) => bank.minPayment >= Number(carDataWatcher.firstPayment))}
+
                         carDataDeniedBanks={
                         banks
-                            .filter((bank) => bank.minPayment <= carDataWatcher.firstPayment)}
+                            .filter((bank) => !bank.availableModels.includes(carDataWatcher.carData.carModel)
+                                || !bank.availableMarks.includes(carDataWatcher.carData.carMark))}
+
                         carData={carDataWatcher.carData}
                     />
                     <div className={styles.mainHeader}>
@@ -88,16 +74,9 @@ const BanksDataList: FC = () => {
                             onClick={() => {handleFocusText("subs")}}
                         >Субсидии</p>
                     </div>
-                    <Button
-                        style={{width: "100%", marginBottom: "20px"}}
-                        icon={<CalculatorOutlined />}
-                        onClick={handleRecount}
-                        disabled={!recountAvailable}
-                    >Сделать перерасчет
-                    </Button>
                     <Collapse
                         expandIcon={({ isActive }) => isActive ? <MinusOutlined/> : <PlusOutlined/>}
-                        expandIconPosition="right"
+                        expandIconPosition="end"
                         defaultActiveKey={1}
                     >
                         {
@@ -105,11 +84,7 @@ const BanksDataList: FC = () => {
                         }
                     </Collapse>
                     <Button
-                        style={{
-                            marginTop: "20px",
-                            width: "100%",
-                            height: "40px"
-                        }}
+                        className={styles.createNote}
                         type="primary"
                         danger
                     >Создать заявку</Button>

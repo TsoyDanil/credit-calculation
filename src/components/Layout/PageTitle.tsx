@@ -2,10 +2,12 @@ import { FC } from "react";
 import styles from "./AppLayout.module.css"
 import { BellOutlined, DownOutlined } from '@ant-design/icons'
 import {Dropdown, MenuProps, Space} from "antd";
+import {menuItems} from "../../data/menuItems.tsx";
 
 type Props = {
     pageTitle: string
 }
+
 const items: MenuProps['items'] = [
     {
         key: '1',
@@ -42,13 +44,7 @@ const PageTitle:FC<Props> = ({pageTitle}) => {
     return <div className={styles.titleContainer}>
         <div className={styles.pageInfoContainer}>
             <p
-                style={{
-                    fontSize: "25px",
-                    padding: "10px 20px 28px 20px",
-                    display: "flex",
-                    cursor: "pointer",
-                    fontWeight: "bold"
-                }}
+                className={styles.pageHeaderTextRoot}
             >{`<`}</p>
             <div>
                 <h1>{pageTitle}</h1>
@@ -58,10 +54,8 @@ const PageTitle:FC<Props> = ({pageTitle}) => {
         <div className={styles.userDataContainer}>
             <button className={styles.languageIndicator}>RU</button>
             <BellOutlined
-                style={{
-                    fontSize: '20px',
-                    marginLeft: "35px"
-                }}/>
+                className={styles.bellIcon}
+            />
             <div>
                 <div
                     className={styles.userShortName}
@@ -73,10 +67,7 @@ const PageTitle:FC<Props> = ({pageTitle}) => {
             <Dropdown menu={{ items }}>
                 <a onClick={(e) => e.preventDefault()}>
                     <Space>
-                        <span style={{
-                            color: "#798595",
-                            marginLeft: "10px"
-                        }}>Тахинова Алия</span>
+                        <span className={styles.userName}>Тахинова Алия</span>
                         <DownOutlined style={{color: "#798595"}}/>
                     </Space>
                 </a>

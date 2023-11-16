@@ -181,8 +181,8 @@ const AppLayout: React.FC = () => {
                                 <h1 className={styles.header}>Калькулятор</h1>
                                 {
                                     !isCountActive ?
-                                    <DataPlaceholder/> :
-                                    <BanksDataList/>
+                                        <DataPlaceholder/> :
+                                        <BanksDataList/>
                                 }
                             </div>
                         </Content>

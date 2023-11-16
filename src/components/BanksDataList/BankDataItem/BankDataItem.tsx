@@ -7,28 +7,28 @@ import {getRandomCost} from "../../../helpers/getRandomCost.ts";
 
 type Props = {
     bank: TBank,
-    carCost: number | null
+    carCost: number | null,
+    firstPayment: number,
+    timePeriod: number
 }
 
 
-const BankDataItem:FC<Props> = ({bank, carCost}) => {
+const BankDataItem:FC<Props> = ({bank, carCost, timePeriod, firstPayment}) => {
 
     return <div className={styles.root}>
         <div className={styles.headerData}>
             <div>
                 <h3>Ежемесачный плаетж</h3>
-                <h1>{getRandomCost(100000, 500000)} т</h1>
+                <h1>{((Number(carCost) + Number(carCost)/100*bank.bid - firstPayment)/timePeriod).toFixed(2)} т</h1>
             </div>
 
             <div>
                 <h3>Ставка</h3>
-                <h1
-                    style={{color: "red"}}
-                >{bank.bid},0 %</h1>
+                <h1><span>{bank.bid},0 %</span></h1>
             </div>
         </div>
 
-        <hr style={{margin: "20px 0"}}/>
+        <hr className={styles.separationLine}/>
 
         <div
             className={styles.dataBlock}
@@ -59,10 +59,7 @@ const BankDataItem:FC<Props> = ({bank, carCost}) => {
         </div>
 
         <Button
-            style={{
-                width: "100%",
-                height: "40px"
-            }}
+            className={styles.button}
             icon={<PrinterOutlined />}
         >Распечатать</Button>
     </div>

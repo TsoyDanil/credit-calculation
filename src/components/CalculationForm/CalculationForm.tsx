@@ -33,12 +33,7 @@ const CalculationForm: FC = () => {
         <h1>Рассчитать автокредитование</h1>
             <div className={styles.selectRoot}>
                 <Select
-                    style={{
-                        height: "40px",
-                        marginBottom: "20px",
-                        maxWidth: "310px",
-                        width: "100%"
-                    }}
+                    className={styles.select}
                     placeholder="Торговая точка"
                     value={bargainPoint}
                     onChange={(e) => {dispatch(setBargainPoint(e))}}
@@ -50,12 +45,7 @@ const CalculationForm: FC = () => {
                 </Select>
 
                 <Select
-                    style={{
-                        height: "40px",
-                        marginBottom: "20px",
-                        maxWidth: "310px",
-                        width: "100%"
-                    }}
+                    className={styles.select}
                     placeholder="Тип авто"
                     value={carType}
                     onChange={(e) => {dispatch(setCarType(e))}}
@@ -77,11 +67,7 @@ const CalculationForm: FC = () => {
 
         <div className={styles.selectRoot}>
             <Input
-                style={{
-                    height: "40px",
-                    maxWidth: "310px",
-                    width: "100%"
-                }}
+                rootClassName={styles.input}
                 placeholder="Стоимость авто"
                 value={carCost ? `₸ ${carCost}` : ""}
                 onChange={(e) => {
@@ -92,11 +78,7 @@ const CalculationForm: FC = () => {
             />
 
             <Input
-                style={{
-                    height: "40px",
-                    maxWidth: "310px",
-                    width: "100%"
-                }}
+                rootClassName={styles.input}
                 placeholder="Первоначальный взнос"
                 value={firstPayment ? `₸ ${firstPayment}` : ""}
                 onChange={(e) => {
@@ -110,11 +92,7 @@ const CalculationForm: FC = () => {
 
         <div className={styles.selectRoot}>
             <Select
-                style={{
-                    height: "40px",
-                    maxWidth: "310px",
-                    width: "100%"
-                }}
+                className={styles.select}
                 placeholder="Срок займа"
                 value={loanPeriod}
                 onChange={(e) => {dispatch(setLoanPeriod(e))}}
@@ -130,7 +108,6 @@ const CalculationForm: FC = () => {
                 <p>С потверждением дохода</p>
             </div>
         </div>
-
         </div>
 }
 

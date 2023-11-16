@@ -41,10 +41,12 @@ const DataPlaceholder: FC = () => {
 
     return <div className={styles.root}>
 
-        <p className={styles.text}>Заполните все параметры и нажмите расчитать, чтобы получить предварительные решения от банков</p>
+        <p className={styles.text}>
+            Заполните все параметры и нажмите расчитать, чтобы получить предварительные решения от банков
+        </p>
 
         <Button
-            style={{width: "100%", marginTop: "20px"}}
+            className={styles.button}
             disabled={!isDataFilled}
             icon={<CalculatorOutlined />}
             onClick={() => {dispatch(toggleCountActive())}}
