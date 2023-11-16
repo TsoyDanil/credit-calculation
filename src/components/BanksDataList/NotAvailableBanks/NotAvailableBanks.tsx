@@ -40,6 +40,7 @@ const NotAvailableBanks: FC<Props> = ({firstPaymentDeniedBanks, carDataDeniedBan
                         {
                             carDataDeniedBanks.map((b: TBank) => (<p key={b.id}>Модели: {parseArray(b.availableModels)}</p>))
                         }
+                        <p>{carData.releaseYear}</p>
                     </Card> : null
                 }
             </div>
