@@ -1,9 +1,9 @@
 import {FC} from "react";
-import {TBank} from "../../data/banks.ts";
+import {TBank} from "../../../data/banks.ts";
 import styles from "./BankDataItem.module.css"
 import {Button} from "antd";
 import {PrinterOutlined} from '@ant-design/icons'
-import {getRandomCost} from "../../helpers/getRandomCost.ts";
+import {getRandomCost} from "../../../helpers/getRandomCost.ts";
 
 type Props = {
     bank: TBank,

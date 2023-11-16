@@ -1,3 +1,7 @@
+.root{
+    position: relative;
+}
+
 .mainHeader{
     display: flex;
     justify-content: space-between;
