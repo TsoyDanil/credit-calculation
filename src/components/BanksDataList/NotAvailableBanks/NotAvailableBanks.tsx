@@ -4,6 +4,7 @@ import {Content} from "antd/es/layout/layout";
 import {TBank} from "../../../data/banks.ts";
 import {TCarData} from "../../../types/carData.ts";
 import Card from "antd/es/card/Card";
+import {parseArray} from "../../../helpers/parseArray.ts";
 
 type Props = {
     firstPaymentDeniedBanks: TBank[],
@@ -20,21 +21,24 @@ const NotAvailableBanks: FC<Props> = ({firstPaymentDeniedBanks, carDataDeniedBan
                 style={{ padding: 24, borderRadius: "5px" }}
             >
                 {
-                    carDataDeniedBanks.length ?
+                    firstPaymentDeniedBanks.length ?
                     <Card title={`По выбранному авто ${carData.carMark} ${carData.carModel}, ${carData.releaseYear} имеется субсидия/акция`} bordered={false} style={{ width: 600 }}>
                         {
-                            carDataDeniedBanks.length > 0 ?
-                                carDataDeniedBanks.map((b: TBank) => <p key={b.id}>{b.bankName}</p>)
+                            firstPaymentDeniedBanks.length > 0 ?
+                                firstPaymentDeniedBanks.map((b: TBank) => <p key={b.id}>{b.bankName} с первоначальным взносом: {b.minPayment}</p>)
                                 : null
                         }
                     </Card> : null
                 }
 
                 {
-                    firstPaymentDeniedBanks.length ?
+                    carDataDeniedBanks.length ?
                     <Card title="Вам доступны авто" style={{ width: 600, marginTop: "20px" }}>
                         {
-                            firstPaymentDeniedBanks.map((b: TBank) => (<p key={b.id}>{b.availableMarks[1]} {b.availableModels[1]}</p>))
+                            carDataDeniedBanks.map((b: TBank) => (<p key={b.id}>Марки: {parseArray(b.availableMarks)}</p>))
+                        }
+                        {
+                            carDataDeniedBanks.map((b: TBank) => (<p key={b.id}>Модели: {parseArray(b.availableModels)}</p>))
                         }
                     </Card> : null
                 }

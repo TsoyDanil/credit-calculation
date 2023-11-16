@@ -55,12 +55,12 @@ const BanksDataList: FC = () => {
                     <NotAvailableBanks
                         firstPaymentDeniedBanks={
                         banks
-                            .filter((bank) => bank.minPayment >= Number(carDataWatcher.firstPayment))}
+                            .filter((bank) => bank.minPayment > Number(carDataWatcher.firstPayment))}
 
                         carDataDeniedBanks={
                         banks
                             .filter((bank) => !bank.availableModels.includes(carDataWatcher.carData.carModel)
-                                || !bank.availableMarks.includes(carDataWatcher.carData.carMark))}
+                                && !bank.availableMarks.includes(carDataWatcher.carData.carMark))}
 
                         carData={carDataWatcher.carData}
                     />
