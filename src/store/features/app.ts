@@ -2,10 +2,12 @@ import {createSlice} from "@reduxjs/toolkit";
 
 interface IAppState {
     showModal: boolean
+    isCountActive: boolean
 }
 
 const initialState: IAppState = {
-    showModal: false
+    showModal: false,
+    isCountActive: false
 }
 
 export const appSlice = createSlice({
@@ -14,8 +16,11 @@ export const appSlice = createSlice({
     reducers: {
         toggleShowModal: (state) => {
             state.showModal = !state.showModal
+        },
+        toggleCountActive: (state) => {
+            state.isCountActive = !state.isCountActive
         }
     }
 })
 
-export const {toggleShowModal} = appSlice.actions
+export const {toggleShowModal, toggleCountActive} = appSlice.actions

@@ -1,18 +1,68 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useMemo, useState} from "react";
 import {Button, Collapse} from "antd";
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import {PlusOutlined, MinusOutlined, CalculatorOutlined} from '@ant-design/icons';
 import {banks, TBank} from "../../data/banks.ts";
 import BankDataItem from "./BankDataItem.tsx";
 import styles from "./BanksDataList.module.css"
+import { useAppSelector} from "../../store";
+import {checkObjectValues} from "../../helpers/checkObjectValues.ts";
 
 const { Panel } = Collapse;
 const BanksDataList: FC = () => {
 
     const [focusSection, setFocusSection] = useState<string>("stand")
-
     const handleFocusText = (name: string) => {
         setFocusSection(name)
     }
+
+    const carInfo = useAppSelector((state) => state.data)
+
+    const [carDataWatcher, setCarDataWatcher] = useState(carInfo)
+
+    const [recountAvailable, setRecountAvailable] = useState<boolean>(false)
+    const handleRecount = () => {
+        setCarDataWatcher(carInfo)
+        setRecountAvailable(false)
+    }
+
+    const memoList =
+        useMemo(() => banks
+            .filter((bank) => bank.availableModels.includes(carDataWatcher.carData.carModel)
+                && bank.availableMarks.includes(carDataWatcher.carData.carMark))
+            .map((bank: TBank) => {
+        return <Panel key={bank.id}
+                      header={<div
+                          style={{display: "flex", alignItems: "center"}}
+                      >
+                          <div
+                              style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  color: "white",
+                                  background: "black",
+                                  borderRadius: "50%",
+                                  marginRight: "20px"
+                              }}
+                          >
+                              {bank.logo}
+                          </div>
+                          <p>{bank.bankName}</p>
+                      </div>}>
+            <BankDataItem bank={bank} carCost={carDataWatcher.carCost}/>
+        </Panel>
+    }),[banks, carDataWatcher])
+
+    useEffect(() => {
+        const isDataValid = checkObjectValues(carInfo)
+        isDataValid ? setRecountAvailable(true) : setRecountAvailable(false)
+    }, [carInfo])
+
+    useEffect(() => {
+        setRecountAvailable(false)
+    }, [])
 
     return <>
                 <div className={styles.mainHeader}>
@@ -25,36 +75,19 @@ const BanksDataList: FC = () => {
                         onClick={() => {handleFocusText("subs")}}
                     >Субсидии</p>
                 </div>
+                <Button
+                    style={{width: "100%", marginBottom: "20px"}}
+                    icon={<CalculatorOutlined />}
+                    onClick={handleRecount}
+                    disabled={!recountAvailable}
+                >Сделать перерасчет</Button>
                 <Collapse
                     expandIcon={({ isActive }) => isActive ? <MinusOutlined/> : <PlusOutlined/>}
-                    expandIconPosition="right" // или "left", в зависимости от вашего предпочтения
+                    expandIconPosition="right"
+                    defaultActiveKey={1}
                 >
                     {
-                        banks.map((bank: TBank) => {
-                            return <Panel key={bank.id}
-                                          header={<div
-                                                    style={{display: "flex", alignItems: "center"}}
-                                                >
-                                              <div
-                                                  style={{
-                                                      width: "30px",
-                                                      height: "30px",
-                                                      display: "flex",
-                                                      alignItems: "center",
-                                                      justifyContent: "center",
-                                                      color: "white",
-                                                      background: "black",
-                                                      borderRadius: "50%",
-                                                      marginRight: "20px"
-                                                  }}
-                                                >
-                                                  {bank.logo}
-                                              </div>
-                                              <p>{bank.bankName}</p>
-                                          </div>}>
-                                    <BankDataItem bank={bank}/>
-                                </Panel>
-                        })
+                        memoList
                     }
                 </Collapse>
                 <Button

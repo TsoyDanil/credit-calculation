@@ -1,11 +1,11 @@
 import './App.css'
-import AppLayot from "./components/Layout/AppLayot.tsx";
+import AppLayout from "./components/Layout/AppLayout.tsx";
 
 function App() {
 
   return (
     <>
-        <AppLayot/>
+        <AppLayout/>
     </>
   )
 }

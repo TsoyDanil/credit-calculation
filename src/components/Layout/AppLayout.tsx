@@ -51,7 +51,8 @@ const items: MenuItem[] = [
 
 const AppLayout: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const {showModal} = useAppSelector((state) => state.app)
+    const {showModal, isCountActive} = useAppSelector((state) => state.app)
+
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -61,7 +62,7 @@ const AppLayout: React.FC = () => {
             {
                 showModal && <ModalForm/>
             }
-            <Layout style={{ minHeight: '100vh' }} >
+            <Layout style={{ minHeight: '100vh', height: "auto" }} >
                 <Sider
                     className={styles.menuLayout}
                     collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
@@ -178,8 +179,11 @@ const AppLayout: React.FC = () => {
                         <Content style={{ margin: '16px', width: "50%" }}>
                             <div style={{ padding: 24, minHeight: 250, background: colorBgContainer, borderRadius: "5px" }}>
                                 <h1 className={styles.header}>Калькулятор</h1>
-                                {/*<DataPlaceholder/>*/}
-                                <BanksDataList/>
+                                {
+                                    !isCountActive ?
+                                    <DataPlaceholder/> :
+                                    <BanksDataList/>
+                                }
                             </div>
                         </Content>
                     </div>

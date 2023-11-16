@@ -101,6 +101,7 @@ const CalculationForm: FC = () => {
                 value={firstPayment ? `₸ ${firstPayment}` : ""}
                 onChange={(e) => {
                     let inputValue = e.target.value
+                    if (e.target.value.length === 12) return
                     inputValue = inputValue.replace(/[^0-9]/g, '')
                     dispatch(setFirstPayment(inputValue !== "" ? Number(inputValue) : null))
                 }}

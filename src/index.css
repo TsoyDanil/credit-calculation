@@ -1,4 +1,21 @@
-body {
+* {
   margin: 0;
-  font-family: 'Raleway', sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+#root{
+  background: #f5f5f5;
+  position: relative;
+}
+
+#root:after{
+  content: "";
+  width: 200px;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  background: #1f2937;
+  left: 0;
 }

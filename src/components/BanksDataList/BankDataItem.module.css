@@ -10,9 +10,11 @@
 .dataBlock{
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    color: #979fac;
 }
 
 .dataBlock span{
     font-weight: bold;
+    color: black;
 }

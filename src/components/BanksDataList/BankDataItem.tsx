@@ -1,24 +1,23 @@
 import {FC} from "react";
 import {TBank} from "../../data/banks.ts";
 import styles from "./BankDataItem.module.css"
-import {useAppSelector} from "../../store";
 import {Button} from "antd";
 import {PrinterOutlined} from '@ant-design/icons'
+import {getRandomCost} from "../../helpers/getRandomCost.ts";
 
 type Props = {
-    bank: TBank
+    bank: TBank,
+    carCost: number | null
 }
 
 
-const BankDataItem:FC<Props> = ({bank}) => {
-
-    const {carCost} = useAppSelector((state) => state.data)
+const BankDataItem:FC<Props> = ({bank, carCost}) => {
 
     return <div className={styles.root}>
         <div className={styles.headerData}>
             <div>
                 <h3>Ежемесачный плаетж</h3>
-                <h1>123 005 т</h1>
+                <h1>{getRandomCost(100000, 500000)} т</h1>
             </div>
 
             <div>
@@ -49,7 +48,7 @@ const BankDataItem:FC<Props> = ({bank}) => {
             className={styles.dataBlock}
         >
             <p>Сумма переплаты с учетом КАСКО</p>
-            <p><span>20000000 т</span></p>
+            <p><span>{getRandomCost(1000000, 3000000)} т</span></p>
         </div>
 
         <div
