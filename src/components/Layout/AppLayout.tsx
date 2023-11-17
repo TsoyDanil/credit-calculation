@@ -70,16 +70,7 @@ const AppLayout: React.FC = () => {
                     <div className={styles.headerContainer}>
                         <h1>allur</h1>
                         <div
-                            style={{
-                                padding: "15px",
-                                borderRadius: "5px",
-                                background: "red",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                margin: "20px 0",
-                                width: "160px"
-                            }}
+                            className={styles.mainDescription}
                         >
                             <p style={{
                                 fontWeight: "bold",
@@ -102,14 +93,10 @@ const AppLayout: React.FC = () => {
                     </Header>
 
                     <div style={{display: "flex"}}>
-                        <Content style={{
-                            margin: '16px',
-                            minHeight: 60,
-                            background: colorBgContainer,
-                            maxWidth: "440px",
-                            borderRadius: "5px"
-                        }}>
-                            <div style={{ padding: 15, position: "relative"}}>
+                        <Content style={{background: colorBgContainer}}
+                            className={styles.shortInfoContent}
+                        >
+                            <div className={styles.rootDescriptionData}>
                                 <h1
                                     style={{
                                         fontSize: "20px"
@@ -124,13 +111,7 @@ const AppLayout: React.FC = () => {
                                 >
                                     ИИН: 11111111111
                                 </p>
-                                <HighlightOutlined style={{
-                                    position: "absolute",
-                                    right: "5%",
-                                    top: "15%",
-                                    fontSize: "20px",
-                                    color: "#7e8b9c"
-                                }}/>
+                                <HighlightOutlined className={styles.logoDescription}/>
                             </div>
                         </Content>
 
@@ -141,7 +122,7 @@ const AppLayout: React.FC = () => {
                             maxWidth: "240px",
                             borderRadius: "5px"
                         }}>
-                            <div style={{ padding: 15, position: "relative"}}>
+                            <div className={styles.rootDescriptionData}>
                                 <h1
                                     style={{
                                         fontSize: "16px"
@@ -156,13 +137,7 @@ const AppLayout: React.FC = () => {
                                 >
                                     Номер телефона
                                 </p>
-                                <PhoneOutlined style={{
-                                    position: "absolute",
-                                    right: "5%",
-                                    top: "15%",
-                                    fontSize: "20px",
-                                    color: "#7e8b9c"
-                                }}/>
+                                <PhoneOutlined className={styles.logoDescription}/>
                             </div>
                         </Content>
                     </div>
@@ -170,14 +145,18 @@ const AppLayout: React.FC = () => {
                     <div style={{
                         display: "flex"
                     }}>
-                        <Content style={{ margin: '16px', width: "50%" }}>
-                            <div style={{ padding: 24, minHeight: 360, background: colorBgContainer, borderRadius: "5px" }}>
+                        <Content className={styles.contentStyles}>
+                            <div
+                                className={styles.separateContent}
+                                style={{ minHeight: 360 }}>
                                 <CalculationForm/>
                             </div>
                         </Content>
 
-                        <Content style={{ margin: '16px', width: "50%" }}>
-                            <div style={{ padding: 24, minHeight: 250, background: colorBgContainer, borderRadius: "5px" }}>
+                        <Content className={styles.contentStyles}>
+                            <div
+                                className={styles.separateContent}
+                                style={{  minHeight: 250 }}>
                                 <h1 className={styles.header}>Калькулятор</h1>
                                 {
                                     !isCountActive ?

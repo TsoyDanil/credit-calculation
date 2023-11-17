@@ -41,13 +41,7 @@ const ModalForm: FC = () => {
         <div className={styles.overlay}>
             <div className={styles.modalContainer}>
                 <CloseOutlined
-                    style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "15px",
-                        fontSize: "20px",
-                        cursor: "pointer"
-                    }}
+                    className={styles.closeIconStyles}
                     onClick={() => {dispatch(toggleShowModal())}}
                 />
                 <h1 className={styles.header}>Марка, модель и год выпуска</h1>
@@ -62,10 +56,7 @@ const ModalForm: FC = () => {
                             }
                         })
                     }}
-                    style={{
-                        height: "40px",
-                        marginBottom: "20px"
-                    }}
+                    className={styles.select}
                 >
                     {
                         carMarks.map((car: TCarMark) => <Select.Option key={car.carMark} value={car.carMark}>{car.carMark}</Select.Option>)
@@ -82,10 +73,7 @@ const ModalForm: FC = () => {
                             }
                         })
                     }}
-                    style={{
-                        height: "40px",
-                        marginBottom: "20px"
-                    }}
+                    className={styles.select}
                 >
                     {
                         carModels.map((car: TCarModel) => <Select.Option key={car.carModel} value={car.carModel}>{car.carModel}</Select.Option>)
@@ -102,10 +90,7 @@ const ModalForm: FC = () => {
                             }
                         })
                     }}
-                    style={{
-                        height: "40px",
-                        marginBottom: "20px"
-                    }}
+                    className={styles.select}
                 >
                     {
                         dates.map((date) => <Select.Option key={date} value={date}>{date}г.</Select.Option>)

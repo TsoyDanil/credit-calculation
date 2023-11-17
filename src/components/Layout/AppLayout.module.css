@@ -84,6 +84,49 @@
     margin-left: 10px;
 }
 
+.mainDescription{
+    padding: 15px;
+    border-radius: 5px;
+    background: red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    width: 160px;
+}
+
+.shortInfoContent{
+    margin: 16px;
+    min-height: 60px;
+    max-width: 440px;
+    border-radius: 5px;
+}
+
+.logoDescription{
+    position: absolute;
+    right: 5%;
+    top: 15%;
+    font-size: 20px;
+    color: #7e8b9c;
+}
+
+.rootDescriptionData{
+    padding: 15px;
+    position: relative;
+}
+
+.contentStyles{
+    margin: 16px;
+    width: 50%;
+}
+
+.separateContent{
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+
 h1{
     margin: 0;
 }
