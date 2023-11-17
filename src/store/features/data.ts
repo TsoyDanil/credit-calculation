@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TCarData} from "../../types/carData.ts";
+import {TCarData} from "../../types/TCarData.ts";
 
 
 interface IDataState {

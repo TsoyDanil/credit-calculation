@@ -1,18 +1,25 @@
-import {FC, useEffect, useMemo, useState} from "react";
-import {Button, Collapse} from "antd";
+import { FC, useEffect, useMemo, useState} from "react";
+import {Button, Collapse, notification} from "antd";
 import {PlusOutlined, MinusOutlined} from '@ant-design/icons';
-import {banks, TBank} from "../../data/banks.ts";
+import {banks} from "../../data/banks.ts";
 import BankDataItem from "./BankDataItem/BankDataItem.tsx";
 import styles from "./BanksDataList.module.css"
 import { useAppSelector} from "../../store";
 import {checkObjectValues} from "../../helpers/checkObjectValues.ts";
 import NotAvailableBanks from "./NotAvailableBanks/NotAvailableBanks.tsx";
 import BankHeader from "./BankHeader/BankHeader.tsx";
+import {TBank} from "../../types/TBank.ts";
+import {NotificationPlacement} from "antd/es/notification/interface";
+import Modal from "antd/es/modal/Modal";
 
 const { Panel } = Collapse;
 const BanksDataList: FC = () => {
 
     const [focusSection, setFocusSection] = useState<string>("stand")
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalTimer, setModalTimer] = useState<number | null>(null);
+
     const handleFocusText = (name: string) => {
         setFocusSection(name)
     }
@@ -24,6 +31,24 @@ const BanksDataList: FC = () => {
     const handleRecount = () => {
         setCarDataWatcher(carInfo)
     }
+
+    const handleModalClose = () => {
+        if (modalTimer) {
+            clearTimeout(modalTimer);
+        }
+        setModalVisible(false);
+    };
+
+    const handleOnPrintClick = (bank: TBank) => {
+
+        localStorage.setItem('selectedBank', JSON.stringify(bank));
+
+        notification.success({
+            message: 'Распечатано успешно!',
+            description: `Выбран банк: ${bank.bankName}. Данные были сохранены`,
+            placement: 'topLeft' as NotificationPlacement
+        });
+    };
 
     const memoList =
         useMemo(() => banks
@@ -41,16 +66,52 @@ const BanksDataList: FC = () => {
                     carCost={carDataWatcher.carCost}
                     timePeriod={Number(carInfo.loanPeriod)}
                     firstPayment={Number(carInfo.firstPayment)}
+                    handlePrint={()=>{
+                        handleOnPrintClick(bank)
+                    }}
                 />
             </Panel>)
     }),[banks, carDataWatcher])
+
+    const sendRequest = () => {
+        setModalVisible(true);
+        const timer = setTimeout(() => {
+            setModalVisible(false);
+        }, 5000);
+        setModalTimer(timer);
+    };
 
     useEffect(() => {
         const isDataValid = checkObjectValues(carInfo)
         isDataValid && handleRecount()
     }, [carInfo])
 
+    useEffect(() => {
+        const selectedBankData = localStorage.getItem('selectedBank');
+        if (selectedBankData) {
+            const selectedBank = JSON.parse(selectedBankData);
+            notification.info({
+                message: 'Имеется сохраненный банк',
+                description: `Выбран банк: ${selectedBank.bankName}`,
+                placement: 'topRight' as NotificationPlacement,
+            });
+        }
+    }, [])
+
     return <>
+            <Modal
+                title="Заявка создана!"
+                visible={modalVisible}
+                onOk={handleModalClose}
+                onCancel={handleModalClose}
+                footer={[
+                    <Button key="ok" type="primary" onClick={handleModalClose}>
+                        OK
+                    </Button>,
+                ]}
+            >
+                <p>Ваша заявка была успешно создана и отправлена!</p>
+            </Modal>
                 <div>
                     <NotAvailableBanks
                         firstPaymentDeniedBanks={
@@ -60,7 +121,9 @@ const BanksDataList: FC = () => {
                         carDataDeniedBanks={
                         banks
                             .filter((bank) => !bank.availableModels.includes(carDataWatcher.carData.carModel)
-                                && !bank.availableMarks.includes(carDataWatcher.carData.carMark))}
+                                && !bank.availableMarks.includes(carDataWatcher.carData.carMark)
+                                && bank.releaseYearPermission <= Number(carDataWatcher.carData.releaseYear)
+                            )}
 
                         carData={carDataWatcher.carData}
                     />
@@ -87,6 +150,7 @@ const BanksDataList: FC = () => {
                         className={styles.createNote}
                         type="primary"
                         danger
+                        onClick={() => {sendRequest()}}
                     >Создать заявку</Button>
                 </div>
         </>

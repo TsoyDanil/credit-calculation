@@ -6,7 +6,7 @@ import styles from "./ModalForm.module.css"
 import {Select} from "antd";
 import {carMarks, TCarMark} from "../../data/carMarks.ts";
 import {carModels, TCarModel} from "../../data/carModels.ts";
-import {TCarData} from "../../types/carData.ts";
+import {TCarData} from "../../types/TCarData.ts";
 import {setCarOverallData} from "../../store/features/data.ts";
 const ModalForm: FC = () => {
 
@@ -108,7 +108,7 @@ const ModalForm: FC = () => {
                     }}
                 >
                     {
-                        dates.map((date) => <Select.Option key={date.toString()} value={date.toString()}>{date}г.</Select.Option>)
+                        dates.map((date) => <Select.Option key={date} value={date}>{date}г.</Select.Option>)
                     }
                 </Select>
                 <div className={styles.buttonsContainer}>

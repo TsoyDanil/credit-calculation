@@ -15,14 +15,19 @@ const BankHeader: FC<Props> = ({ logo, bankName}) => {
     const [logoSrc, setLogoSrc] = useState<string | undefined>(undefined)
 
     useEffect(() => {
-        if (logo === "free"){
-            setLogoSrc(freedomLogo)
-        } else if (logo === "halyk"){
-            setLogoSrc(halykLogo)
-        } else {
-            setLogoSrc(otherBank)
+        switch (logo) {
+            case "free":
+                setLogoSrc(freedomLogo);
+                break;
+            case "halyk":
+                setLogoSrc(halykLogo);
+                break;
+            default:
+                setLogoSrc(otherBank);
+                break;
         }
     },[])
+
     return <>
         <div className={styles.root}>
             <img className={styles.logo} src={logoSrc} alt="logo"/>

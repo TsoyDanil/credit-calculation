@@ -2,7 +2,6 @@ import { FC } from "react";
 import styles from "./AppLayout.module.css"
 import { BellOutlined, DownOutlined } from '@ant-design/icons'
 import {Dropdown, MenuProps, Space} from "antd";
-import {menuItems} from "../../data/menuItems.tsx";
 
 type Props = {
     pageTitle: string

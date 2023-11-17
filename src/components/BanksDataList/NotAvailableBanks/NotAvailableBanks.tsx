@@ -1,10 +1,10 @@
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 import styles from "./NotAvailableBanks.module.css"
 import {Content} from "antd/es/layout/layout";
-import {TBank} from "../../../data/banks.ts";
-import {TCarData} from "../../../types/carData.ts";
+import {TCarData} from "../../../types/TCarData.ts";
 import Card from "antd/es/card/Card";
-import {parseArray} from "../../../helpers/parseArray.ts";
+import {getMarksPerModel} from "../../../helpers/getMarksPerModel.ts";
+import {TBank} from "../../../types/TBank.ts";
 
 type Props = {
     firstPaymentDeniedBanks: TBank[],
@@ -12,6 +12,15 @@ type Props = {
     carData: TCarData
 }
 const NotAvailableBanks: FC<Props> = ({firstPaymentDeniedBanks, carDataDeniedBanks, carData}) => {
+
+    const [marksPerModel, setMarksPerModel] = useState<string[]>([])
+
+    useEffect(() => {
+        if (carDataDeniedBanks.length > 0){
+            const result = getMarksPerModel(carDataDeniedBanks)
+            setMarksPerModel(result)
+        }
+    }, [])
 
     if (firstPaymentDeniedBanks.length === 0 && carDataDeniedBanks.length === 0) return null
 
@@ -32,15 +41,11 @@ const NotAvailableBanks: FC<Props> = ({firstPaymentDeniedBanks, carDataDeniedBan
                 }
 
                 {
-                    carDataDeniedBanks.length ?
+                    marksPerModel.length ?
                     <Card title="Вам доступны авто" style={{ width: 600, marginTop: "20px" }}>
                         {
-                            carDataDeniedBanks.map((b: TBank) => (<p key={b.id}>Марки: {parseArray(b.availableMarks)}</p>))
+                            marksPerModel.map((markPerModel: string) => (<p key={markPerModel}>{markPerModel} {carData.releaseYear} г</p>))
                         }
-                        {
-                            carDataDeniedBanks.map((b: TBank) => (<p key={b.id}>Модели: {parseArray(b.availableModels)}</p>))
-                        }
-                        <p>{carData.releaseYear}</p>
                     </Card> : null
                 }
             </div>

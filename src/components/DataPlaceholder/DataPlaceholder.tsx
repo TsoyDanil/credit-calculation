@@ -8,7 +8,7 @@ import {
     CalculatorOutlined
 } from '@ant-design/icons';
 import {toggleCountActive} from "../../store/features/app.ts";
-import {TCarData} from "../../types/carData.ts";
+import {TCarData} from "../../types/TCarData.ts";
 
 type TDataObject = {
     carCost: number | null,

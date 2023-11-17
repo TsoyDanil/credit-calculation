@@ -1,15 +1,4 @@
-export type TBank = {
-    id: number,
-    bankName: string,
-    bid: number,
-    paymentPerYear: number,
-    lastPaymentDate: string,
-    logo: string,
-    availableMarks: Array<string | null>,
-    availableModels: Array<string | null>
-    releaseYearPermission: string,
-    minPayment: number
-}
+import {TBank} from "../types/TBank.ts";
 
 export const banks: TBank[] = [
     {
@@ -21,7 +10,7 @@ export const banks: TBank[] = [
         logo: "free",
         availableMarks: ["Mark 1", "Mark 2", "Mark 3"],
         availableModels: ["Model 1", "Model 2", "Model 3"],
-        releaseYearPermission: "Any",
+        releaseYearPermission: 1000,
         minPayment: 1
     },
     {
@@ -33,7 +22,7 @@ export const banks: TBank[] = [
         logo: "halyk",
         availableMarks: ["Mark 1", "Mark 2"],
         availableModels: ["Model 1", "Model 3"],
-        releaseYearPermission: "Any",
+        releaseYearPermission: 1900,
         minPayment: 10000
     },
     {
@@ -45,7 +34,7 @@ export const banks: TBank[] = [
         logo: "free",
         availableMarks: ["Mark 1", "Mark 3"],
         availableModels: ["Model 2", "Model 3"],
-        releaseYearPermission: "Any",
+        releaseYearPermission: 2000,
         minPayment: 100000
     },
     {
@@ -57,7 +46,7 @@ export const banks: TBank[] = [
         logo: "halyk",
         availableMarks: ["Mark 1", "Mark 3", "Mark 2"],
         availableModels: ["Model 1", "Model 2"],
-        releaseYearPermission: "Any",
+        releaseYearPermission: 2010,
         minPayment: 100000
     },
     {
@@ -69,7 +58,7 @@ export const banks: TBank[] = [
         logo: "free",
         availableMarks: ["Mark 1", "Mark 3", "Mark 2"],
         availableModels: ["Model 1", "Model 3"],
-        releaseYearPermission: "Any",
+        releaseYearPermission: 2021,
         minPayment: 20000
     }
 ]

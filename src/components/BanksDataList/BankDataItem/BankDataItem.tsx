@@ -1,19 +1,20 @@
 import {FC} from "react";
-import {TBank} from "../../../data/banks.ts";
 import styles from "./BankDataItem.module.css"
 import {Button} from "antd";
 import {PrinterOutlined} from '@ant-design/icons'
 import {getRandomCost} from "../../../helpers/getRandomCost.ts";
+import {TBank} from "../../../types/TBank.ts";
 
 type Props = {
     bank: TBank,
     carCost: number | null,
     firstPayment: number,
-    timePeriod: number
+    timePeriod: number,
+    handlePrint: () => void
 }
 
 
-const BankDataItem:FC<Props> = ({bank, carCost, timePeriod, firstPayment}) => {
+const BankDataItem:FC<Props> = ({bank, carCost, timePeriod, firstPayment, handlePrint}) => {
 
     return <div className={styles.root}>
         <div className={styles.headerData}>
@@ -34,21 +35,21 @@ const BankDataItem:FC<Props> = ({bank, carCost, timePeriod, firstPayment}) => {
             className={styles.dataBlock}
         >
             <p>Стоимость КАСКО/год</p>
-            <p><span>{bank.paymentPerYear} т</span></p>
+            <p><span>{bank.paymentPerYear} ₸</span></p>
         </div>
 
         <div
             className={styles.dataBlock}
         >
             <p>Сумма займа</p>
-            <p><span>{carCost} т</span></p>
+            <p><span>{carCost} ₸</span></p>
         </div>
 
         <div
             className={styles.dataBlock}
         >
             <p>Сумма переплаты с учетом КАСКО</p>
-            <p><span>{getRandomCost(1000000, 3000000)} т</span></p>
+            <p><span>{getRandomCost(1000000, 3000000)} ₸</span></p>
         </div>
 
         <div
@@ -61,6 +62,7 @@ const BankDataItem:FC<Props> = ({bank, carCost, timePeriod, firstPayment}) => {
         <Button
             className={styles.button}
             icon={<PrinterOutlined />}
+            onClick={handlePrint}
         >Распечатать</Button>
     </div>
 }
